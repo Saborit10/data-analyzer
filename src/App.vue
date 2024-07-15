@@ -94,7 +94,7 @@ const clearData = () => {
   <section
     class="bg-white dark:bg-gray-800 p-10 rounded-xl flex flex-col gap-8 w-full"
   >
-    <div class="flex flex-row w-full gap-8">
+    <div class="flex flex-row w-full gap-8 items-end">
       <p
         class="text-4xl text-black dark:text-white font-bold inline whitespace-nowrap"
       >

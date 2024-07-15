@@ -1,7 +1,11 @@
-# Vue 3 + Vite
+# Herramienta para visualización de datos
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### Instalación
+* Clonar el repositorio.
+* Correr `npm install` o `pnpm install`.
+* Correr `npm run dev` o `pnpm run dev` para iniciar el servidor.
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+### Uso
+* Seleccionar el archivo (`csv`, `xls` o `xlsx`).
+* Seleccionar la columna para el eje de las `x` y la columna para el eje de las `y`.
+* Seleccionar el tipo de gráfico (puntos, barras o líneas).

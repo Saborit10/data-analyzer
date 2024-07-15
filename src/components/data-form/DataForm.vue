@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import Button from "primevue/button";
 import Dropdown from "primevue/dropdown";
 import FileUpload from "primevue/fileupload";
 
@@ -17,9 +16,6 @@ const selectedYColumn = ref();
 /* Ref to the column options */
 const xColumnOptions = ref([]);
 const yColumnOptions = ref([]);
-
-/* Ref to the loading state flag of submit button */
-const isInLoadingState = ref<boolean>(false);
 
 /* Type Chart Options */
 const chartTypeOptions = [
@@ -84,7 +80,7 @@ const onFileCleared = () => {
 
 <template>
   <form class="flex flex-col gap-2 w-100">
-    <div class="flex flex-row justify-between w-100">
+    <div class="flex flex-row justify-between items-end w-100">
       <FileUpload
         mode="basic"
         name="demo[]"
@@ -92,34 +88,51 @@ const onFileCleared = () => {
         @select="onFileSelect"
         @clear="onFileCleared"
         class="max-w-64 truncate"
+        chooseLabel="Seleccionar archivo"
       />
 
       <div class="flex gap-2">
-        <Dropdown
-          v-model="selectedXColumn"
-          :options="xColumnOptions"
-          optionLabel="name"
-          filter
-          class="w-48"
-          @change="loadFile"
-        />
+        <div class="flex flex-col">
+          <label for="x-column" class="text-slate-600 font-light text-sm"
+            >Columna del eje x</label
+          >
+          <Dropdown
+            id="x-column"
+            v-model="selectedXColumn"
+            :options="xColumnOptions"
+            optionLabel="name"
+            filter
+            class="w-48"
+            @change="loadFile"
+          />
+        </div>
 
-        <Dropdown
-          v-model="selectedYColumn"
-          :options="yColumnOptions"
-          optionLabel="name"
-          filter
-          class="w-48"
-          @change="loadFile"
-        />
+        <div class="flex flex-col">
+          <label for="y-column" class="text-slate-600 font-light text-sm"
+            >Columna del eje y</label
+          >
+          <Dropdown
+            v-model="selectedYColumn"
+            :options="yColumnOptions"
+            optionLabel="name"
+            filter
+            class="w-48"
+            @change="loadFile"
+          />
+        </div>
 
-        <Dropdown
-          v-model="selectedChartType"
-          :options="chartTypeOptions"
-          optionLabel="name"
-          class="w-48"
-          @change="loadFile"
-        />
+        <div class="flex flex-col">
+          <label for="x-column" class="text-slate-600 font-light text-sm"
+            >Tipo de gráfico</label
+          >
+          <Dropdown
+            v-model="selectedChartType"
+            :options="chartTypeOptions"
+            optionLabel="name"
+            class="w-48"
+            @change="loadFile"
+          />
+        </div>
       </div>
     </div>
   </form>

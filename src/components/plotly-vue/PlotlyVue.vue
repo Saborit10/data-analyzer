@@ -3,12 +3,17 @@ import Plotly from "plotly.js-dist-min";
 import { onMounted, onUnmounted, onUpdated, ref } from "vue";
 import { computed } from "vue";
 
+/* Props */
 const props = defineProps<{
   traces: object[];
   layout?: object;
   config?: object;
 }>();
 
+/* Template Refs */
+const plotlyRef = ref(null);
+
+/* Empty data flag */
 const isEmpty = computed(() => {
   for (let i = 0; i < props.traces.length; i++)
     if (props.traces[i].x.length > 0 || props.traces[i].y.length > 0)
@@ -16,27 +21,24 @@ const isEmpty = computed(() => {
   return true;
 });
 
+/* Function to build the plot */
 const buildPlot = () => {
-  Plotly.newPlot("plotlyContainer", props.traces, props.layout, props.config);
+  if (!isEmpty.value)
+    Plotly.newPlot(plotlyRef.value, props.traces, props.layout, props.config);
 };
 
-// Build Plotly chart
+/* Build plot on mounted and on update */
+onMounted(buildPlot);
 onUpdated(buildPlot);
 
 // Redraw chart on resize
-const plotlyRef = ref(null);
-
-const handleResize = () => {
-  Plotly.newPlot(plotlyRef.value, props.traces, props.layout, props.config);
-};
-
 onMounted(() => {
-  const observer = new ResizeObserver(handleResize);
+  const observer = new ResizeObserver(buildPlot);
   observer.observe(plotlyRef.value);
 });
 
 onUnmounted(() => {
-  const observer = new ResizeObserver(handleResize);
+  const observer = new ResizeObserver(buildPlot);
   observer.unobserve(plotlyRef.value);
 });
 </script>

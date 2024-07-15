@@ -60,7 +60,17 @@ const showData = (data) => {
   traces.value = [trace];
 };
 
-const clearData = () => {};
+const clearData = () => {
+  trace = {
+    x: [],
+    y: [],
+    mode: "",
+    type: "",
+  };
+  traces.value = [trace];
+
+  dataframe.value = undefined;
+};
 </script>
 
 <template>

@@ -124,7 +124,6 @@ const onFileCleared = () => {
         v-model="selectedChartType"
         :options="chartTypeOptions"
         optionLabel="name"
-        filter
         class="w-full md:w-[14rem]"
         @change="loadFile"
       />

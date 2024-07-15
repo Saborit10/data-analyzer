@@ -25,10 +25,12 @@ const isEmpty = computed(() => {
 const buildPlot = () => {
   if (!isEmpty.value)
     Plotly.newPlot(plotlyRef.value, props.traces, props.layout, props.config);
+  else
+    plotlyRef.value.innerHTML =
+      '<div id="plotlyContainer" ref="plotlyRef"></div>';
 };
 
 /* Build plot on mounted and on update */
-onMounted(buildPlot);
 onUpdated(buildPlot);
 
 // Redraw chart on resize

@@ -9,3 +9,6 @@
 * Seleccionar el archivo (`csv`, `xls` o `xlsx`).
 * Seleccionar la columna para el eje de las `x` y la columna para el eje de las `y`.
 * Seleccionar el tipo de gráfico (puntos, barras o líneas).
+
+### Assets
+* En la carpeta `assets` hay varios _datasets_.

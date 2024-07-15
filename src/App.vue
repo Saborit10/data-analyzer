@@ -5,16 +5,11 @@ import PlotlyVue from "./components/plotly-vue/PlotlyVue.vue";
 import DataframeVue from "./components/dataframe-vue/DataframeVue.vue";
 import { reactive, ref } from "vue";
 
-const layout = {};
-
-const chartConfig = {
-  displayModeBar: false,
-  scrollZoom: false,
-  dragmode: false,
-};
-
-let traces = ref([]);
+/* Dataframe ref */
 let dataframe = ref();
+
+/* Traces ref */
+let traces = ref([]);
 let trace = reactive({
   x: [],
   y: [],
@@ -22,10 +17,22 @@ let trace = reactive({
   type: "",
 });
 
+/* Layout ref */
+const layout = {};
+
+/* Chart config ref */
+const chartConfig = {
+  displayModeBar: false,
+  scrollZoom: false,
+  dragmode: false,
+};
+
+/* Triggered when data is loaded to a dataframe */
 const onDataLoaded = (data) => {
   dataframe.value = data;
 };
 
+/* Triggered to show data as a chart */
 const showData = (data) => {
   const xSeries = dataframe.value[data.x];
   const ySeries = dataframe.value[data.y];
@@ -37,6 +44,9 @@ const showData = (data) => {
         y: ySeries.values,
         mode: "markers",
         type: "scatter",
+        marker: {
+          color: "#10B981",
+        },
       };
       break;
     case "bar":
@@ -45,6 +55,9 @@ const showData = (data) => {
         y: ySeries.values,
         mode: "markers",
         type: "bar",
+        marker: {
+          color: "#10B981",
+        },
       };
       break;
     case "lines":
@@ -53,6 +66,9 @@ const showData = (data) => {
         y: ySeries.values,
         mode: "lines+markers",
         type: "scatter",
+        marker: {
+          color: "#10B981",
+        },
       };
       break;
   }
@@ -60,6 +76,7 @@ const showData = (data) => {
   traces.value = [trace];
 };
 
+/* Triggered to clear data chart and dataframe */
 const clearData = () => {
   trace = {
     x: [],
@@ -77,9 +94,20 @@ const clearData = () => {
   <section
     class="bg-white dark:bg-gray-800 p-10 rounded-xl flex flex-col gap-8 w-full"
   >
-    <h1 class="text-4xl text-black dark:text-white font-bold text-center">
-      Data Analyzer
-    </h1>
+    <div class="flex flex-row w-full gap-8">
+      <p
+        class="text-4xl text-black dark:text-white font-bold inline whitespace-nowrap"
+      >
+        Data Analyzer
+      </p>
+
+      <DataForm
+        @data-loaded="onDataLoaded"
+        @show-data="showData"
+        @clear-data="clearData"
+        class="w-full"
+      />
+    </div>
 
     <div class="flex flex-row gap-3 h-full">
       <Panel header="Gráfico de los Datos" class="w-1/2">
@@ -87,11 +115,6 @@ const clearData = () => {
       </Panel>
 
       <Panel header="Datos" class="w-1/2 flex flex-col gap-y-2">
-        <DataForm
-          @data-loaded="onDataLoaded"
-          @show-data="showData"
-          @clear-data="clearData"
-        />
         <DataframeVue :df="dataframe" />
       </Panel>
     </div>

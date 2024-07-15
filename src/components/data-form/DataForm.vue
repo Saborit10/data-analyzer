@@ -83,50 +83,44 @@ const onFileCleared = () => {
 </script>
 
 <template>
-  <form class="flex flex-col gap-2">
-    <div class="flex flex-row justify-between">
+  <form class="flex flex-col gap-2 w-100">
+    <div class="flex flex-row justify-between w-100">
       <FileUpload
         mode="basic"
         name="demo[]"
         :maxFileSize="1000000"
         @select="onFileSelect"
         @clear="onFileCleared"
+        class="max-w-64 truncate"
       />
 
-      <Button
-        type="button"
-        label="Cargar"
-        icon="pi pi-search"
-        :loading="isInLoadingState"
-        @click="loadFile"
-      />
-    </div>
-    <div class="flex flex-row justify-between">
-      <Dropdown
-        v-model="selectedXColumn"
-        :options="xColumnOptions"
-        optionLabel="name"
-        filter
-        class="w-full md:w-[14rem]"
-        @change="loadFile"
-      />
+      <div class="flex gap-2">
+        <Dropdown
+          v-model="selectedXColumn"
+          :options="xColumnOptions"
+          optionLabel="name"
+          filter
+          class="w-48"
+          @change="loadFile"
+        />
 
-      <Dropdown
-        v-model="selectedYColumn"
-        :options="yColumnOptions"
-        optionLabel="name"
-        filter
-        class="w-full md:w-[14rem]"
-        @change="loadFile"
-      />
+        <Dropdown
+          v-model="selectedYColumn"
+          :options="yColumnOptions"
+          optionLabel="name"
+          filter
+          class="w-48"
+          @change="loadFile"
+        />
 
-      <Dropdown
-        v-model="selectedChartType"
-        :options="chartTypeOptions"
-        optionLabel="name"
-        class="w-full md:w-[14rem]"
-        @change="loadFile"
-      />
+        <Dropdown
+          v-model="selectedChartType"
+          :options="chartTypeOptions"
+          optionLabel="name"
+          class="w-48"
+          @change="loadFile"
+        />
+      </div>
     </div>
   </form>
 </template>

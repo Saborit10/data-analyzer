@@ -75,6 +75,9 @@ const onFileSelect = async (event) => {
 /* Triggered when a file is cleared */
 const onFileCleared = () => {
   emit("clearData");
+
+  xColumnOptions.value = [];
+  yColumnOptions.value = [];
 };
 </script>
 

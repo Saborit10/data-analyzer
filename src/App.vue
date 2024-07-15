@@ -1,9 +1,17 @@
 <script setup>
-import DataForm from "./components/data-form/DataForm.vue";
+import { reactive, ref } from "vue";
+
 import Panel from "primevue/panel";
+import Toast from "primevue/toast";
+import { useToast } from "primevue/usetoast";
+
+import DataForm from "./components/data-form/DataForm.vue";
+
 import PlotlyVue from "./components/plotly-vue/PlotlyVue.vue";
 import DataframeVue from "./components/dataframe-vue/DataframeVue.vue";
-import { reactive, ref } from "vue";
+
+/* Create Toast instance */
+const toast = useToast();
 
 /* Dataframe ref */
 let dataframe = ref();
@@ -30,6 +38,15 @@ const chartConfig = {
 /* Triggered when data is loaded to a dataframe */
 const onDataLoaded = (data) => {
   dataframe.value = data;
+
+  const [rows, columns] = dataframe.value.shape;
+
+  toast.add({
+    severity: "info",
+    summary: "Info",
+    detail: `Se ha cargado un dataset de ${rows} filas y ${columns} columnas`,
+    life: 5000,
+  });
 };
 
 /* Triggered to show data as a chart */
@@ -94,6 +111,7 @@ const clearData = () => {
   <section
     class="bg-white dark:bg-gray-800 p-10 rounded-xl flex flex-col gap-8 w-full"
   >
+    <Toast />
     <div class="flex flex-row w-full gap-8 items-end">
       <p
         class="text-4xl text-black dark:text-white font-bold inline whitespace-nowrap"
